@@ -1,0 +1,14 @@
+#A page to see how the wiki works- whether we could use it for a manual
+
+= Introduction =
+
+It would be nice to have a shared web location for a user-editable manual for using EnFloSW
+
+
+= Details =
+
+The manual is currently a collection of HTML files that travels with the code; it would be good if they were more dynamic, and could be edited by users.
+
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
