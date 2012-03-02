@@ -1,0 +1,27 @@
+#labels Phase-Deploy
+A rough outline of the steps needed to get a working copy downloaded to a new machine
+
+= Introduction =
+
+In short, you need an svn (subversion) client- typically tortoisesvn on the PC, Versions or Cornerstone on the Mac (paid, but excellent). You point the client at the repository, and tell it to "Check out" a "Working Copy" to your machine. When you make changes there, you can use the client to "Commit" them back to the repository.
+
+
+= Details =
+
+1. Get tortoisesvn, or any other svn client, on the machine; if it's on there already, and it wants to update, then do the update (that's been OK so far..!)
+
+2. Right-click somewhere and select SVN Checkout...
+
+3. Enter the URL for the repo:
+
+If you look at http://code.google.com/p/enflo-sw/source/checkout, it gives _commands_ like:
+
+svn checkout http://enflo-sw.googlecode.com/svn/trunk/ enflo-sw-read-only
+or
+svn checkout https://enflo-sw.googlecode.com/svn/trunk/ enflo-sw --username tomlawton67@gmail.com
+
+But they are _commands_, not just the URL. For tortoise, you just want to enter http://enflo-sw.googlecode.com/svn/trunk/EnFloSW in the URL field, and the location you'd like to check out to:-
+
+4. That should be it- it'll check out to your PC
+
+When you want to commit code... It should prompt you for your googlecode username and password to allow a commit. The password is always tricky to remember, so I always look mine up by going to http://code.google.com/p/enflo-sw/source/checkout, logging in, and following the link from: "When prompted, enter your generated googlecode.com password."
