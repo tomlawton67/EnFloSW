@@ -24,4 +24,4 @@ But they are _commands_, not just the URL. For tortoise, you just want to enter 
 
 4. That should be it- it'll check out to your PC
 
-When you want to commit code... It should prompt you for your googlecode username and password to allow a commit. The password is always tricky to remember, so I always look mine up by going to http://code.google.com/p/enflo-sw/source/checkout, logging in, and following the link from: "When prompted, enter your generated googlecode.com password."
+When you want to commit code... It should prompt you for your googlecode username and password to allow a commit. The password is always tricky to remember, so I always look mine up by going to https://code.google.com/p/enflo-sw/source/checkout, logging in, and following the link from: "When prompted, enter your generated googlecode.com password."
