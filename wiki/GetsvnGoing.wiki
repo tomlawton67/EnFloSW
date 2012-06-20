@@ -16,9 +16,10 @@ In short, you need an svn (subversion) client- typically tortoisesvn on the PC, 
 
 If you look at http://code.google.com/p/enflo-sw/source/checkout, it gives _commands_ like:
 
-svn checkout http://enflo-sw.googlecode.com/svn/trunk/ enflo-sw-read-only
+{{{svn checkout http://enflo-sw.googlecode.com/svn/trunk/ enflo-sw-read-only}}}
 or
-svn checkout https://enflo-sw.googlecode.com/svn/trunk/ enflo-sw --username tomlawton67@gmail.com
+
+{{{svn checkout https://enflo-sw.googlecode.com/svn/trunk/ enflo-sw --username tomlawton67@gmail.com}}}
 
 But they are _commands_, not just the URL. For tortoise, you just want to enter https://enflo-sw.googlecode.com/svn/trunk/EnFloSW in the URL field, and the location you'd like to check out to:-
 
