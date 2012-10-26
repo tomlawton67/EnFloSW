@@ -1,0 +1,14 @@
+#labels Overview
+#The beginnings of a wiki-fied manual for EnFloSW
+
+= Introduction =
+
+EnFloSW is a flexible multi-purpose data acquisition suite written in NI LabVIEW. At its heart is "Measurement.vi", which takes, and ensemble averages, blocks of data. Physical DAQ devices are abstracted, 
+making it possible to code for most hardware.
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
