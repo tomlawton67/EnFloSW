@@ -1,0 +1,39 @@
+#summary This page describes setting up any number of DT DAQ boxes for taking either differential or single ended data.
+
+= Introduction =
+
+Data translation (DT) boxes have 8 digital inputs that can be used to "configure" the box in order to tell Enflo-SW how to correctly get data.  In addition, if you want to use more than one DT box you must select one box as a "master" and then wire the other boxes to this one so that it can control each devices via an external clock, which makes sure the acquisition is simultaneous.  
+
+= Instructions =
+
+There are three steps to setting everything up correctly:
+
+1. Select a "master" box and (if you are only using one DT box then this will be the master box).  This must have the internal clock output (COUT) wired to the external clock input.
+
+2.  Connect connect the slave devices external clocks to the internal clock (COUT) pin on the master box.  The slaves should be numbered sequentially using the first 7 bits of the digital input.  The digital input floats high, but the signal is inverted in software, so to make the input a "1" (high) connect it to ground:
+
+- Master (no connections) : 0000000
+- Slave 1 : 10000000
+- Slave 2 : 01000000
+- Slave 3 : 11000000
+
+etc... a maximum of 128 devices can be connected in this manner.
+
+3. Now finally, connect the analogue inputs to each slave and master. Wire the boxes as follows:
+
+Single sided:
+
+Channel 0 = Channel 0
+Channel 1 = Channel 1
+Channel 2 = Channel 2
+Channel 3 = Channel 3
+Channel 4 = Channel 4
+Channel 5 = Channel 5
+
+Differential:
+
+Channel 0 = Channel 0 (positive) Channel 1 (negative)
+Channel 1 = Channel 2 (positive) Channel 3 (negative)
+Channel 2 = Channel 4 (positive) Channel 5 (negative)
+
+Use the final (8th) digital input to configure the box for differential or single sided input.  The default (un-wired) is single sided DAQ. Each board behaves completely independently (although in sync with all the others) so you can have some taking single sided and some differential.
