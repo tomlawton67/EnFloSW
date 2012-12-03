@@ -21,7 +21,7 @@ etc... a maximum of 128 devices can be connected in this manner.
 
 3. Now finally, connect the analogue inputs to each slave and master. Wire the boxes as follows:
 
-Single sided:
+Single ended:
 
 Channel 0 = Channel 0
 Channel 1 = Channel 1
@@ -36,4 +36,6 @@ Channel 0 = Channel 0 (positive) Channel 1 (negative)
 Channel 1 = Channel 2 (positive) Channel 3 (negative)
 Channel 2 = Channel 4 (positive) Channel 5 (negative)
 
-Use the final (8th) digital input to configure the box for differential or single sided input.  The default (un-wired) is single sided DAQ. Each board behaves completely independently (although in sync with all the others) so you can have some taking single sided and some differential.
+Use the final (8th) digital input to configure the box for differential or single ended input.  The default (un-wired) is single sided DAQ. Each board behaves completely independently (although in sync with all the others) so you can have some taking single ended and some differential.
+
+For guidance on when to use single-ended or differential connections, see http://www.ni.com/white-paper/3394/en. *When unsure, always use differential inputs*, but note that when using differential inputs it is *very often essential* to provide bias current ground return paths through resistors (~100k) from _both_ sides of the signal to ground...
