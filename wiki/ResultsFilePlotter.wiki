@@ -41,5 +41,8 @@ You could now start plotting with the channels you've chosen, but... Now is a go
   * Repeat for all channels whose names you'd like to simplify
   * To change the order of channels, or remove any accidentally included, press "Organise Channels"; this allows you to nudge channels, or multiple channels, up or down the channel order, and delete single or multiple channels (with a warning)
 
-Now, you might like to try plotting your data...!
-
+Now, you might like to try plotting your data...! Press "OK" on the template editor.
+On the "Plot" tab, the channels created in the template will be available in the ordinate and abscissa selectors. Any channel can be plotted against any other- a typical example may be hotwire velocity vs height, Z. In this case, with U used as the ordinate and Z the abscissa, the "Transpose" button in the bottom-right of the panel can be used to put Z on the vertical axis, as is usually preferred. In "Multi Ordinate" mode two vlaues- for instance mean and variance of U- can both be plotted against Z. And here we see the need for two things...: If data has been taken at multiple locations, we need to filter it, to show coherent profiles taken at specific points rather than all profiles as a single series; we need to do some maths, most typically to normalise velocities and calculate turbulence intensities from variance...
+To do this:
+  * Click Edit Template File
+  * Press "Add New Channel Named"; in the dialogue that pops up, type your desired channel name- for example "U/Uref". _Note that for final output, LaTeX typesetting is used in gnuplot, so true subscripts may be obtained with e.g. `U_{ref}`_
