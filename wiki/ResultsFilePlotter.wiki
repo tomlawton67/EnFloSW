@@ -28,21 +28,51 @@ To start a new project, for which you don't have a template file, the workflow g
   * Start RFP using the Run Arrow
   * You will be prompted to select data to plot; navigate to the file, or folder, of interest
   * If you selected "Selection of files from a folder", select the subset of files in the folder you wish to plot.
-The file will be read in, and all channels in the file (which can be an overwhelming number!) will be available to plot, or use as selectors. At this point, you will probably want to make a template file, to reduce the number of columns available, and to improve their names over those used at acquisition time. To make a template file:
+The file will be read in, and all channels in the file (which can be an overwhelming number!) will be available to plot, or use as selectors. At this point, you will probably want to make a template file, to reduce the number of columns available, and to improve their names over those used at acquisition time...
+
+===Creating a Template File===
+
+To make a template file:
   * Press "Edit Template File", top-centre on the panel.
   * Choose a name and location for the template file; it can be helpful to give it the "fake" extension ".tpt" to remind yourself what it is. Template files are tab-separated plain text, and _can_ be edited in Excel if required, tho this can be challenging.
   * Next it is usually easiest to use "Add New Channels from file" to choose which columns from the results file you *do* want to work with.
   * This presents a list of all the columns present in the results file, in a multi-selectable listbox. A filter is provided to find specific channels more easily. Channels need not all be selected in one "hit"; a few can be selected and then "banked" with the OK button, and then further channels added, to avoid tricky multi-selects.
   * The selected channels will now appear in the Edit_Template_File.vi listbox. Highlighting a channel in the listbox will bring up its details in the cluster on the right.
 
+====Improving and sorting channel names====
 You could now start plotting with the channels you've chosen, but... Now is a good time to shorten, simplify, clarify the names of the imported data, and maybe change their order:
   * Highlight a channel in the listbox- for example "Date:of:Measurement"
   * In the topmost box, replace this with the desired, shorter, channel name- such as "Date". Be sure after changing the name to click elsewhere on the panel to confirm your text entry.
   * Repeat for all channels whose names you'd like to simplify
   * To change the order of channels, or remove any accidentally included, press "Organise Channels"; this allows you to nudge channels, or multiple channels, up or down the channel order, and delete single or multiple channels (with a warning)
 
+
+====Adding Maths channels====
+
 Now, you might like to try plotting your data...! Press "OK" on the template editor.
-On the "Plot" tab, the channels created in the template will be available in the ordinate and abscissa selectors. Any channel can be plotted against any other- a typical example may be hotwire velocity vs height, Z. In this case, with U used as the ordinate and Z the abscissa, the "Transpose" button in the bottom-right of the panel can be used to put Z on the vertical axis, as is usually preferred. In "Multi Ordinate" mode two vlaues- for instance mean and variance of U- can both be plotted against Z. And here we see the need for two things...: If data has been taken at multiple locations, we need to filter it, to show coherent profiles taken at specific points rather than all profiles as a single series; we need to do some maths, most typically to normalise velocities and calculate turbulence intensities from variance...
+On the "Plot" tab, the channels created in the template will be available in the ordinate and abscissa selectors. Any channel can be plotted against any other- a typical example may be hotwire velocity vs height, Z. In this case, with U used as the ordinate and Z the abscissa, the "Transpose" button in the bottom-right of the panel can be used to put Z on the vertical axis, as is usually preferred. In "Multi Ordinate" mode two values- for instance mean and variance of U- can both be plotted against Z. And here we see the need for two things...: If data has been taken at multiple locations, we need to filter it, to show coherent profiles taken at specific points rather than all profiles as a single series; we need to do some maths, most typically to normalise velocities and calculate turbulence intensities from variance...
 To do this:
   * Click Edit Template File
   * Press "Add New Channel Named"; in the dialogue that pops up, type your desired channel name- for example "U/Uref". _Note that for final output, LaTeX typesetting is used in gnuplot, so true subscripts may be obtained with e.g. `U_{ref}`_
+This newly-created channel will attempt to source from a column of its own name- which will not exist in a "fresh" results file; we are going to define the contents of the column using an equation, combining other columns we have available:
+  * Press "Edit Maths Equation"
+  * Increment the "Number of Variables" as required- in this case, 2.
+  * Using the selectors and intervening string boxes at the bottom of the panel, assemble the required equation; the "Maths Equation Symbols" box shows a simplified view of the overall expression.
+  * Press OK to return to the template editor screen.
+  * You may wish to use "Organise Channels" to promote the new maths channel to a sensible position in the channel list. _It is permitted for a maths channel to precede a channel it is based on- however, if a maths channel relies on a preceding maths channel, they must appear in order_
+  * On pressing OK on the template editor, you will return to the main plotter screen and the new channels will be available to plot.
+Note that edits to the template file are saved automatically each time you change it. If you wish to rename a template file- for instance to "fork" it for another purpose- you can enter a new name in the Edit Template File panel before pressing OK. The template will be saved to the new name, and the template file path in RFP will be directed to the new template file.
+
+====Working with Selectors====
+
+You now have nicely normalised values to work with... But still, all your series are mixed up! Now is time to start filtering. Often, the first thing you need to know is what the jumble of points on your plot comprises; two buttons on the "Plot" tab help with this- "Show Results Analysis" and "Show Plot Analysis". The former reports on the entire contents of all results files currently loaded; the latter, just on the data present on the plot, which will typically be a filtered subset. On pressing either button, a window pops up showing the ranges, or lists, of values present in each templated channel. Numeric values will be "binned" according to their tolerance (more later...) while textual values- for instance textual metadata- will be listed. Looking down the list of controlled (rather than measured) variables will allow you to see what data is contained in the set you are viewing. For instance, you may have Z profiles taken at a number of X and Y locations, for a number of different experimental setups.
+When you've identified what distinguishes the multiple profiles that are being displayed, you can start using the selectors- the top-right portion of RFP- to limit you plot to one or more subsets of the data.
+The first two selectors- edged in yellow and red respectively- allow you to select multiple values, each of which is displayed as a separate series on the graph. The final- green- selector allows you to select multiple values which will _not_ be displayed as separate series; this is often useful when applied in the negative sense, using it to exclude a particular group of data that you do *not* want plotted.
+Let us take a hypothetical case where profiles have been taken at multiple X and Y locations, at multiple tunnel speeds... We can assign the first, yellow, selector to X location, and the second, red, selector to the Y location. The third, single selector, can be used to select a single value of Uref. At this point, you may notice rather more decimal places than can be defended in the X and Y positions; indeed, positions which are nominally identical in X may differ by enough to appear as separate series- say 1419 and 1422mm, which were nominally identical but differ by a little traverse uncertainty. This is where we use tolerances, stored in the template file. Every channel starts with a default tolerance of "1"- which may or may not be appropriate!
+Press Edit Template file to get to the template editor....
+  * Highlight the channel in the listbox whose tolerance you wish to change
+  * In the "Tolerance" field of its cluster, set an appropriate tolerance that will allow nominally-identical to fall within a common "bin". The bin centres are computed dynamically based on the data, and the tolerance is applied around these centre values.
+  * While there, set an appropriate "Precision" to use for the display of the variable.
+When you press OK, the data will be re-read from file and the tolerances and precisions applied; hopefully your filters now look neater, with fewer choices, each comprising a coherent group of data. It can take a little trial-and-error to get tolerances correctly set, as the bin centres adjust automatically as the tolerances change, so some experimentation may be needed to ensure data "clumps" together as desired.
+In the case being considered, using a large traverse, X tolerance was set to 10mm, with a precision of 0DPs, Y tolerance 5mm with 0DPs, and Z tolerance 1mm with 1DP. Uref tolerance was set at 1, with 1DP, after experimentation, as this successfully separated the two test velocities of ~10.4 and 14.9m/s.
+With tolerances correctly set, profiles taken at multiple X and Y locations can be plotted as separate series for comparison.
