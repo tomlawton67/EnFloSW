@@ -1,0 +1,19 @@
+#labels Manual,RFP
+#RFP tips and tricks
+
+= Introduction =
+
+Results File Plotter (RFP) was written as an alternative to Excel for quickly viewing experimental results- particularly from traversed instruments- quickly and easily. It has evolved to allow final output of results by passing data to gnuplot for publication-quality graphing.
+
+
+= Details =
+
+RFP ingests Results files produced by Measurement.vi- although has been extended to work with other file types also. It is fundamentally a column-based plotter, where each row describes one measurement point. Data can be filtered based on the value of multiple columns, and the resulting data subset can be plotted, any column against any other. Surface plots and vector plots of the filtered subset are also possible, as is saving of all, or some, columns of the subsetted data.
+A "template" file controls the names that will be used for columns when plotting. This allows columns from disparate sources, with differing names, to be brought in to a single column.
+Also stored in the template file, for each desired column:
+  * "tolerances" to be used for "binning" slightly different values- for instance jittery traverse locations- into a single group. Also the precision with which to display that column.
+  * "maths" definitions, allowing a column to be created which is a mathematical combination (within a single row) of columns.
+  * Omit rows having particular values
+  * Replace text strings- useful for "normalising" comments
+  * Ignoring based on strings in other columns (does this omit the whole row, or just NaN/ blank this "cell"?)
+There are also options per column for "Minimum value", "Folder level", "Summarise" and "Dispose", whose meanings may now be lost in the mists of time...!
