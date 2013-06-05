@@ -63,7 +63,7 @@ This newly-created channel will attempt to source from a column of its own name-
   * On pressing OK on the template editor, you will return to the main plotter screen and the new channels will be available to plot.
 Note that edits to the template file are saved automatically each time you change it. If you wish to rename a template file- for instance to "fork" it for another purpose- you can enter a new name in the Edit Template File panel before pressing OK. The template will be saved to the new name, and the template file path in RFP will be directed to the new template file.
 
-====Working with Selectors====
+===Working with Selectors===
 
 You now have nicely normalised values to work with... But still, all your series are mixed up! Now is time to start filtering. Often, the first thing you need to know is what the jumble of points on your plot comprises; two buttons on the "Plot" tab help with this- "Show Results Analysis" and "Show Plot Analysis". The former reports on the entire contents of all results files currently loaded; the latter, just on the data present on the plot, which will typically be a filtered subset. On pressing either button, a window pops up showing the ranges, or lists, of values present in each templated channel. Numeric values will be "binned" according to their tolerance (more later...) while textual values- for instance textual metadata- will be listed. Looking down the list of controlled (rather than measured) variables will allow you to see what data is contained in the set you are viewing. For instance, you may have Z profiles taken at a number of X and Y locations, for a number of different experimental setups.
 
@@ -109,3 +109,15 @@ If "Only Selected Columns" is chosen, the "Channels to Output" listbox is editab
   * "Channels to first "bin" then output" allows you to create new columns, based off the channels you select, but whose values will be fixed at bin centre values, based on a tolerance you specify in the array which appears when a channel is highlighted. As an example of where this can be useful, consider a file containing profiles taken at two different reference velocities; Uref on every line will be slightly different, but essentially there are runs at 10 and 15 m/s; adding a binned column for Uref will mark *all* the ~10m/s rows with their exact average Uref, and the 15m/s with _their_ exact average Uref, easing future manipulation of the data by removing "jitter" in what are meant to be fixed values. The actual, varying-by-row value of Uref is still saved to file, assuming it is highlighted to be saved. The actual value of the variable does _not_ have to be saved in order to save its "binned" version.
 
 Once the required settings have been selected, pressing OK will cause the file to be created and saved. In the case where the file already exists, the option is given to Append, Overwrite, or Cancel. While RFP is kept in memory, all the settings of the Output_File_Panel are conserved, which is useful if repeatedly dumping data in the same format.
+
+====Save Plot Data====
+
+This will save *just* the data shown in the current plot, followed by a summary table, including just those channels for which "Summarise" is TRUE in the template.
+
+====Save Surface Plot====
+
+This saves the _interpolated_ data of a surface plot to a regular grid that can- for instance- be contour plotted in Excel. The file includes sufficient header summary metadata to identify the data included.
+
+====Save Averaged Rows Together====
+
+The purpose and function of this is best illustrated by the use case which originally spawned it: suppose you have 16 profiles over a building, and wish to reduce this to a single, average, profile....... TBC...
