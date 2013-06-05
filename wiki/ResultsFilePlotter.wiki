@@ -20,7 +20,7 @@ There are also options per column for "Minimum value", "Folder level", "Summaris
 
 = Usage =
 
-To start a new project, for which you don't have a template file, the workflow goes something like...
+To start a new project, for which you don't have a template file, the workflow goes something like...:
   * Start RFP from the Post Process tab in EnFlo Hub
   * RFP will attempt to load its previous data and template, allow it, and then press Stop, or abort if required.
   * In the "Load" tab, delete the text in the "Template" path box
@@ -67,6 +67,8 @@ Note that edits to the template file are saved automatically each time you chang
 
 You now have nicely normalised values to work with... But still, all your series are mixed up! Now is time to start filtering. Often, the first thing you need to know is what the jumble of points on your plot comprises; two buttons on the "Plot" tab help with this- "Show Results Analysis" and "Show Plot Analysis". The former reports on the entire contents of all results files currently loaded; the latter, just on the data present on the plot, which will typically be a filtered subset. On pressing either button, a window pops up showing the ranges, or lists, of values present in each templated channel. Numeric values will be "binned" according to their tolerance (more later...) while textual values- for instance textual metadata- will be listed. Looking down the list of controlled (rather than measured) variables will allow you to see what data is contained in the set you are viewing. For instance, you may have Z profiles taken at a number of X and Y locations, for a number of different experimental setups.
 
+An additional tool which can be useful for identifying differentiating features from mixed profiles is the cursor. If it's not visible, right-click on the cursor symbol in the cursor list (bottom right of panel), and select "Bring to Centre". The cursor can them be manipulated and placed on data points; all the data for that point will be displayed in the "Cursor" tab.
+
 When you've identified what distinguishes the multiple profiles that are being displayed, you can start using the selectors- the top-right portion of RFP- to limit your plot to one or more subsets of the data.
 The first two selectors- edged in yellow and red respectively- allow you to select multiple values, each of which is displayed as a separate series on the graph. The final- green- selector allows you to select multiple values which will _not_ be displayed as separate series; this is often useful when applied in the negative sense, using it to exclude a particular group of data that you do *not* want plotted.
 
@@ -100,6 +102,12 @@ Having sliced out a particular group of data, you may wish to save it for furthe
 Should you need to, you can now edit the output file path- although without the benefit of a dialogue box. Handy if you just need to append a number to a filename, for instance...
 Selector boxes now give you some options-
   * Row Selector allows you to choose between saving just the data that is currently plotted, or all the rows that are loaded
-  * Summarise Data can add a data summary header- showing ranges, averages, or lists of each column- above the data rows themselves. _"Show ONLY data summary" may be broken...?_
+  * Summarise Data can add a data summary header- showing ranges, averages, or lists of each column- above the data rows themselves. "Show ONLY data summary" will output a file showing the ranges or listed binned values _of those variables selected in "Channels to Tabulate in Header"_
   * Column Selector allows you to choose which columns to include in the output file- either all the columns in the template, all the original columns in the results file, or only selected columns from the template- very useful for producing a minimal data file once all the "quality assurance" and raw source data (e.g. Variances...) channels are no longer required.
-If "Only Selected Columns" is chosen, the "Channels to Output" listbox is editable, and just a subset of all the available channels can be highlighted. When a channels which is a maths channel is output, the computed value- not the "formula"- is recorded- much like Excel's  "Paste Special> Values". This means that e.g. you can choose to save computed turbulence intensity, without saving the contributing mean and variance channels. The saved channel will still work with the template you are currently using, as the TI maths channel first looks in a file to see if the TI column exists, and uses that if available, before attempting to compute a value from source values.
+If "Only Selected Columns" is chosen, the "Channels to Output" listbox is editable, and just a subset of all the available channels can be highlighted. When a maths channel is output, the computed value- not the "formula"- is recorded- much like Excel's  "Paste Special> Values". This means that e.g. you can choose to save computed turbulence intensity, without saving the contributing mean and variance channels. The saved channel will still work with the template you are currently using, as the TI maths channel first looks in a file to see if the TI column exists, and uses that if available, before attempting to compute a value from source columns.
+
+  * "Channels to first "bin" then output" allows you to create new columns, based off the channels you select, but whose values will be fixed at bin centre values, based on a tolerance you specify in the array which appears when a channel is highlighted. As an example of where this can be useful, consider a file containing profiles taken at two different reference velocities; Uref on every line will be slightly different, but essentially there are runs at 10 and 15 m/s; adding a binned column for Uref will mark *all* the ~10m/s rows with their exact average Uref, and the 15m/s with _their_ exact average Uref, easing future manipulation of the data by removing "jitter" in what are meant to be fixed values. The actual, varying-by-row value of Uref is still saved to file, assuming it is highlighted to be saved. The actual value of the variable does _not_ have to be saved in order to save its "binned" version.
+
+Once the required settings have been selected, pressing OK will cause the file to be created and saved. In the case where the file already exists, the option is given to Append, Overwrite, or Cancel. While RFP is kept in memory, all the settings of the Output_File_Panel are conserved, which is useful if repeatedly dumping data in the same format.
+
+
