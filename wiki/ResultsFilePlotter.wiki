@@ -90,3 +90,16 @@ If there are multiple points satisfying the same location criteria, they will be
 Having selected a plane of data, it may be amenable to 2-D vector, or 3-D scalar, plotting, for instance if two components of velocity are available, or 2-D location and a scalar value. With a coherent set of data displayed in either an XY or Intensity plot, press the Vector Plot button. A panel will pop up in which you indicate which variable to assign to which axes of the plot.
 For the common case of a cross-stream YZ slice, the X-axis would be the Y location, and the Y-axis the Z location; the "U" component (parallel to the X-axis) would be V, and the V component (parallel to the Z-axis) would be W. _Keep a clear head..!_
 A button at the bottom of the panel allows scalar variables to be plotted- this would typically be used for surface concentrations- perhaps using X as X, Y as Y, and plotting concentration as "U". This renders a 3-D plot, with the scalar being plotted as a point at a height equal to its value over an X-Y plane.
+
+==Saving Data==
+
+Having sliced out a particular group of data, you may wish to save it for further processing or plotting in other packages. Options for doing this are found in the "Save" tab; the simplest being "Save Data Rows":
+  * First set the filename for your output _If you forget, you *can* change it in the next panel!_
+  * Make sure you are plotting the data that you wish to output; it doesn't matter which variable you are plotting, so long as you encompass the data _rows_ that you require.
+  * Press "Save Data Rows"; the Output_file_Panel pops up.
+Should you need to, you can now edit the output file path- although without the benefit of a dialogue box. Handy if you just need to append a number to a filename, for instance...
+Selector boxes now give you some options-
+  * Row Selector allows you to choose between saving just the data that is currently plotted, or all the rows that are loaded
+  * Summarise Data can add a data summary header- showing ranges, averages, or lists of each column- above the data rows themselves. _"Show ONLY data summary" may be broken...?_
+  * Column Selector allows you to choose which columns to include in the output file- either all the columns in the template, all the original columns in the results file, or only selected columns from the template- very useful for producing a minimal data file once all the "quality assurance" and raw source data (e.g. Variances...) channels are no longer required.
+If "Only Selected Columns" is chosen, the "Channels to Output" listbox is editable, and just a subset of all the available channels can be highlighted. When a channels which is a maths channel is output, the computed value- not the "formula"- is recorded- much like Excel's  "Paste Special> Values". This means that e.g. you can choose to save computed turbulence intensity, without saving the contributing mean and variance channels. The saved channel will still work with the template you are currently using, as the TI maths channel first looks in a file to see if the TI column exists, and uses that if available, before attempting to compute a value from source values.
