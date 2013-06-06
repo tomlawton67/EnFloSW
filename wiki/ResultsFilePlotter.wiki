@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Results File Plotter (RFP) was written as an alternative to Excel for quickly viewing experimental results- particularly from traversed instruments- quickly and easily. It has evolved to allow final output of results by passing data to gnuplot for publication-quality graphing.
+Results File Plotter (RFP) was written as an alternative to Excel for quickly viewing experimental results- particularly from traversed instruments- quickly and easily. Initially written to filter out results for plotting elsewhere, it has evolved to allow final output of results by passing data to gnuplot for publication-quality graphing.
 
 
 = Details =
@@ -16,13 +16,13 @@ Also stored in the template file, for each desired column:
   * Omit rows having particular values
   * Replace text strings- useful for "normalising" comments
   * Ignoring based on strings in other columns (does this omit the whole row, or just NaN/ blank this "cell"?)
-There are also options per column for "Minimum value", "Folder level", "Summarise" and "Dispose", whose meanings may now be lost in the mists of time...!
+There are also options per column for "Minimum value", "Folder level", "Summarise" and "Dispose", whose meanings may now be lost in the mists of time, but will be explained as they are re-dscovered!
 
 = Usage =
 
 To start a new project, for which you don't have a template file, the workflow goes something like...:
   * Start RFP from the Post Process tab in EnFlo Hub
-  * RFP will attempt to load its previous data and template, allow it, and then press Stop, or abort if required.
+  * RFP will attempt to load its previous data and template; allow it, and then press Stop, or abort if required.
   * In the "Load" tab, delete the text in the "Template" path box
   * Press the "Empty File Array" button
   * Start RFP using the Run Arrow
@@ -43,23 +43,23 @@ To make a template file:
 You could now start plotting with the channels you've chosen, but... Now is a good time to shorten, simplify, clarify the names of the imported data, and maybe change their order:
   * Highlight a channel in the listbox- for example "Date:of:Measurement"
   * In the topmost box, replace this with the desired, shorter, channel name- such as "Date". Be sure after changing the name to click elsewhere on the panel to confirm your text entry.
-  * Repeat for all channels whose names you'd like to simplify
+  * Repeat for all channels whose names you'd like to simplify. Note that the colons serve to split the channel names across 3 rows in Excel, helping with readability by minimising required column width...
   * To change the order of channels, or remove any accidentally included, press "Organise Channels"; this allows you to nudge channels, or multiple channels, up or down the channel order, and delete single or multiple channels (with a warning)
 
 
 ====Adding Maths channels====
 
 Now, you might like to try plotting your data...! Press "OK" on the template editor.
-On the "Plot" tab, the channels created in the template will be available in the ordinate and abscissa selectors. Any channel can be plotted against any other- a typical example may be hotwire velocity vs height, Z. In this case, with U used as the ordinate and Z the abscissa, the "Transpose" button in the bottom-right of the panel can be used to put Z on the vertical axis, as is usually preferred. In "Multi Ordinate" mode two values- for instance mean and variance of U- can both be plotted against Z. And here we see the need for two things...: If data has been taken at multiple locations, we need to filter it, to show coherent profiles taken at specific points rather than all profiles as a single series; and we need to do some maths, most typically to normalise velocities and calculate turbulence intensities from variance...
+On the "Plot" tab, the channels created in the template will be available in the ordinate and abscissa selectors. Any channel can be plotted against any other- a typical example may be hotwire velocity vs height, Z. In this case, with U used as the ordinate and Z the abscissa, the "Transpose" button in the bottom-right of the panel can be used to put Z on the vertical axis, as is usually preferred. In "Multi Ordinate" mode two, or more, values- for instance mean and variance of U- can both be plotted against Z. And here we see the need for two things...: If data has been taken at multiple locations, we need to filter it, to show coherent profiles taken at specific points rather than all profiles as a single series; and we need to do some maths, most typically to normalise velocities and calculate turbulence intensities from variance...
 To do this:
   * Click Edit Template File
   * Press "Add New Channel Named"; in the dialogue that pops up, type your desired channel name- for example "U/Uref". _Note that for final output, LaTeX typesetting is used in gnuplot, so true subscripts may be obtained with e.g. `U_{ref}`_
 This newly-created channel will attempt to source from a column of its own name- which will not exist in a "fresh" results file; we are going to define the contents of the column using an equation, combining other columns we have available:
   * Press "Edit Maths Equation"
   * Increment the "Number of Variables" as required- in this case, 2.
-  * Using the selectors and intervening string boxes at the bottom of the panel, assemble the required equation; the "Maths Equation Symbols" box shows a simplified view of the overall expression.
+  * Using the selectors and intervening string boxes at the bottom of the panel, assemble the required equation; for example choose hotwire velocity in the first dropdown selector, type "/" in the intervening text box, and select reference velocity in the second dropdown. The "Maths Equation Symbols" box shows a simplified view of the overall expression- in this case, "A/B"
   * Press OK to return to the template editor screen.
-  * You may wish to use "Organise Channels" to promote the new maths channel to a sensible position in the channel list. _It is permitted for a maths channel to precede a channel it is based on- however, if a maths channel relies on a preceding maths channel, they must appear in order_
+  * You may wish to use "Organise Channels" to promote the new maths channel to a sensible position in the channel list. _It is permitted for a maths channel to precede a channel it is based on- however, if a maths channel relies on a preceding maths channel (which *is* permitted), they must appear in order_
   * On pressing OK on the template editor, you will return to the main plotter screen and the new channels will be available to plot.
 Note that edits to the template file are saved automatically each time you change it. If you wish to rename a template file- for instance to "fork" it for another purpose- you can enter a new name in the Edit Template File panel before pressing OK. The template will be saved to the new name, and the template file path in RFP will be directed to the new template file.
 
@@ -72,6 +72,7 @@ An additional tool which can be useful for identifying differentiating features 
 When you've identified what distinguishes the multiple profiles that are being displayed, you can start using the selectors- the top-right portion of RFP- to limit your plot to one or more subsets of the data.
 The first two selectors- edged in yellow and red respectively- allow you to select multiple values, each of which is displayed as a separate series on the graph. The final- green- selector allows you to select multiple values which will _not_ be displayed as separate series; this is often useful when applied in the negative sense, using it to exclude a particular group of data that you do *not* want plotted.
 
+====Tolerances and Precision====
 Let us take a hypothetical case where profiles have been taken at multiple X and Y locations, at multiple tunnel speeds... We can assign the first, yellow, selector to X location, and the second, red, selector to the Y location. The third, single selector, can be used to select a single value of Uref. At this point, you may notice rather more decimal places than can be defended in the X and Y positions; indeed, positions which are nominally identical in X may differ by enough to appear as separate series- say 1419 and 1422mm, which were nominally identical but differ by a little traverse uncertainty. This is where we use tolerances, stored in the template file. Every channel starts with a default tolerance of "1"- which may or may not be appropriate!
 Press Edit Template file to get to the template editor....
   * Highlight the channel in the listbox whose tolerance you wish to change
@@ -120,4 +121,5 @@ This saves the _interpolated_ data of a surface plot to a regular grid that can-
 
 ====Save Averaged Rows Together====
 
-The purpose and function of this is best illustrated by the use case which originally spawned it: suppose you have 16 profiles over a building, and wish to reduce this to a single, average, profile....... TBC...
+The purpose and function of this is best illustrated by the use case which originally spawned it: suppose you have 16 profiles over a building, and wish to reduce this to a single, average, profile. With the group of profiles you would like to average together displayed on the graph, plotted against the abscissa they share in common- typically Z- press "Save Averaged Rows Together". A panel pops up, asking "Do you want to Combine rows with identical positions together?", with options "Combine Rows", or "Just average series". What does this mean?! Well, each profile would have different metadata associated with each point, and we have to decide how to deal with this... In the case of "Combine Rows", all the columns of data on the rows which are combined is averaged together, if numeric, or concatenated, if textual. This is good if all the profiles are nominally identical, with metadata which can legitimately be averaged. When combining rows, you get the option of including "Audit Channels"; these are additional columns appended to the output file which record the "deltas"- span from max to min values- of each value that got averaged. For example, consider two profiles taken at different reference velocities: you plot U/Uref vs Z for both values of Uref, and save averages, combining rows. Say the profiles were taken at Uref = 10 and 15m/s; the Uref channel will contain 12.5m/s; the Uref:delta channel will record 5m/s- and similarly for *all* the data and metadata columns...
+More to come.....
